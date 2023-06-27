@@ -1,15 +1,31 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-
+import { AuthContextProvider } from "./context/AuthContext";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Account from "./pages/Account";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Routes>  
-        <Route path='/netflix-react-js' element={<Home />} />
-      </Routes>
+      <AuthContextProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/netflix-react-js" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/netflix-react-js/login" element={<Login />} />
+          <Route path="/netflix-react-js/signup" element={<Signup />} />
+          <Route
+            path="/netflix-react-js/account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </AuthContextProvider>
     </>
   );
 }
