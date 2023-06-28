@@ -9,7 +9,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate("/netflix-react-js/login");
+      navigate("/netflix-react-js");
     } catch (error) {
       console.log(error);
     }
