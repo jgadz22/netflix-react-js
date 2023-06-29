@@ -25,19 +25,19 @@ const Navbar = () => {
       {user?.email ? (
         <div>
           <Link to="/account">
-            <button className="text-white px-6 py-2 mr-4 border border-red-600 hover:bg-red-600 active:bg-gray-300 active:text-black ">Account</button>
+            <button className=" text-white px-2 md:px-6 py-2 mr-2 md:mr-4 text-xs rounded md:text-base border border-red-600 hover:bg-red-600 active:bg-gray-300 active:text-black">Account</button>
           </Link>
-            <button onClick={handleLogout} className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white">
+            <button onClick={handleLogout} className="px-2 md:px-6 py-2 text-xs md:text-base bg-red-600 rounded cursor-pointer text-white">
               Logout
             </button>
         </div>
       ) : (
         <div>
           <Link to="/login">
-            <button className="text-white px-6 py-2 mr-4 border border-red-600 hover:bg-red-600 active:bg-gray-300 active:text-black ">Sign In</button>
+            <button className="text-white px-2 md:px-6 py-2 mr-2 md:mr-4 text-xs md:text-base border border-red-600 hover:bg-red-600 active:bg-gray-300 active:text-black rounded">Sign In</button>
           </Link>
           <Link to="/signup">
-            <button className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white">
+            <button className="px-2 md:px-6 py-2 text-xs md:text-base bg-red-600 rounded cursor-pointer text-white">
               Sign Up
             </button>
           </Link>
