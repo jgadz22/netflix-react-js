@@ -20,7 +20,7 @@ const Movie = ({ item }) => {
           savedShows: arrayUnion({
             id: item.id,
             title: item.title,
-            img: item.backdrop_path
+            img: item.backdrop_path,
           }),
         });
       } catch (error) {
@@ -29,7 +29,31 @@ const Movie = ({ item }) => {
     } else {
       alert("Please sign in to save a movie!");
     }
-  }
+  };
+
+  const deleteShow = async (passedID) => {
+    try {
+      await updateDoc(movieID, {
+        savedShows: item.filter((item) => item.id !== passedID),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeSavedShow = async () => {
+    if (user?.email) {
+      try {
+        setLike(false);
+        setSaved(false);
+        deleteShow(item.id);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("Please sign in to remove a saved movie!");
+    }
+  };
 
   return (
     <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2">
@@ -47,8 +71,11 @@ const Movie = ({ item }) => {
           {item?.title}
         </p>
         <p onClick={saveShow}>
-          {like ? (
-            <FaHeart className="absolute top-4 left-4 text-gray-300" />
+          {saved ? (
+            <FaHeart
+              className="absolute top-4 left-4 text-red-500"
+              onClick={removeSavedShow}
+            />
           ) : (
             <FaRegHeart className="absolute top-4 left-4 text-gray-300" />
           )}
