@@ -21,7 +21,7 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-      navigate("/netflix-react-js");
+      navigate("/");
     } catch (error) {
       setError("Please provide correct Email and Password!");
     }

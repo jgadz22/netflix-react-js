@@ -19,7 +19,7 @@ const Signup = () => {
 
     try {
       await signUp(email, password);
-      navigate("/netflix-react-js");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
