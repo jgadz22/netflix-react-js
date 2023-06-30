@@ -12,7 +12,7 @@ const Login = () => {
   // Redirect if user is already logged in
   useEffect(() => {
     if (user && user.uid) {
-      navigate("/netflix-react-js/");
+      navigate("/");
     }
   }, [user, navigate]);
 
@@ -21,7 +21,7 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-      navigate("/netflix-react-js/");
+      navigate("/");
     } catch (error) {
       setError("Please provide correct Email and Password!");
     }
@@ -74,7 +74,7 @@ const Login = () => {
                 </div>
                 <p className="py-8">
                   <span className="text-gray-600">New to Netflix?</span>
-                  <Link to="/netflix-react-js/signup"> Sign Up</Link>
+                  <Link to="/signup"> Sign Up</Link>
                 </p>
               </form>
             </div>

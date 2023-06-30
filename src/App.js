@@ -14,11 +14,11 @@ function App() {
       <AuthContextProvider>
         <Navbar />
         <Routes>
-          <Route path="/netflix-react-js/" element={<Home />} />
-          <Route path="/netflix-react-js/login" element={<Login />} />
-          <Route path="/netflix-react-js/signup" element={<Signup />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route
-            path="/netflix-react-js/account"
+            path="/account"
             element={
               <ProtectedRoute>
                 <Account />
@@ -26,7 +26,7 @@ function App() {
             }
           />
           
-          <Route path="/netflix-react-js/*" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </AuthContextProvider>
     </>

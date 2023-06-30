@@ -10,7 +10,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (user && user.uid) {
-      navigate("/netflix-react-js/");
+      navigate("/");
     }
   }, [user, navigate]);
 
@@ -19,7 +19,7 @@ const Signup = () => {
 
     try {
       await signUp(email, password);
-      navigate("/netflix-react-js/");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
