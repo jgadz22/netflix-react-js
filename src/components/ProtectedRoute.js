@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const { user } = UserAuth();
 
   if (!user.uid) {
-    return <Navigate to="/" />;
+    return <Navigate to="/netflix-react-js/" />;
   } else {
     return children;
   }

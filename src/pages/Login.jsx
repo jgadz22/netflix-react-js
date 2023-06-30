@@ -12,7 +12,7 @@ const Login = () => {
   // Redirect if user is already logged in
   useEffect(() => {
     if (user && user.uid) {
-      navigate("/netflix-react-js");
+      navigate("/netflix-react-js/");
     }
   }, [user, navigate]);
 
@@ -21,7 +21,7 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-      navigate("/");
+      navigate("/netflix-react-js/");
     } catch (error) {
       setError("Please provide correct Email and Password!");
     }

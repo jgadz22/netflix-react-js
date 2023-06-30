@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Account from "./pages/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -13,17 +14,19 @@ function App() {
       <AuthContextProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/netflix-react-js/" element={<Home />} />
+          <Route path="/netflix-react-js/login" element={<Login />} />
+          <Route path="/netflix-react-js/signup" element={<Signup />} />
           <Route
-            path="/account"
+            path="/netflix-react-js/account"
             element={
               <ProtectedRoute>
                 <Account />
               </ProtectedRoute>
             }
           />
+          
+          <Route path="/netflix-react-js/*" element={<NotFound />} />
         </Routes>
       </AuthContextProvider>
     </>

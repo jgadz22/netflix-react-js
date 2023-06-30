@@ -4,6 +4,7 @@ import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import { AiOutlineClose } from "react-icons/ai";
+import noImage from "../photos/No_Image.png";
 
 const SavedShows = () => {
   const [movies, setMovies] = useState([]);
@@ -55,11 +56,11 @@ const SavedShows = () => {
               className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
             >
               <img
-                className="w-full h-auto block"
+                className="w-full h-[160px] block object-contain"
                 src={
                   item?.img
                     ? `https://image.tmdb.org/t/p/w500/${item?.img}`
-                    : "fallback-image-url"
+                    : noImage
                 }
                 alt={item?.title}
               />

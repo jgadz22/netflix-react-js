@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SavedShows from "../components/SavedShows";
+import { useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const Account = () => {
+  const { user } = UserAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user && user.uid) {
+      navigate("/netflix-react-js/");
+    }
+  }, [user, navigate]);
+
   return (
     <>
       <div className="w-full text-white">
