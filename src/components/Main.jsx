@@ -69,7 +69,7 @@ const Main = ({ movies, showWatchLaterButton }) => {
 
   const handlePlayButtonClick = () => {
     // Verify the origin of the window before showing the trailer
-    if (window.location.origin === "http://localhost:3000") {
+    if (window.location.origin === "http://localhost:3000" || window.location.origin === "https://jgadz22.github.io") {
       setShowTrailer(true);
     } else {
       console.log("Invalid origin. Trailer cannot be shown.");
