@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, getDoc, doc, updateDoc } from "firebase/firestore";
 import noImage from "../photos/No_Image.png";
 
 const Movie = ({ item, onSelectMovie }) => {
@@ -11,6 +11,25 @@ const Movie = ({ item, onSelectMovie }) => {
   const [saved, setSaved] = useState(false);
 
   const movieID = doc(db, "users", `${user?.email}`);
+
+  useEffect(() => {
+    const checkSaved = async () => {
+      if (user?.email) {
+        try {
+          const docSnapshot = await getDoc(movieID);
+          if (docSnapshot.exists()) {
+            const savedShows = docSnapshot.data().savedShows;
+            const isSaved = savedShows.some((show) => show.id === item.id);
+            setSaved(isSaved);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    checkSaved();
+  }, [item.id, movieID, user?.email]);
 
   const saveShow = async () => {
     if (user?.email) {
@@ -24,6 +43,7 @@ const Movie = ({ item, onSelectMovie }) => {
             img: item.backdrop_path,
           }),
         });
+        alert("Movie saved to your account!");
       } catch (error) {
         console.log(error);
       }
@@ -34,9 +54,12 @@ const Movie = ({ item, onSelectMovie }) => {
 
   const deleteShow = async (passedID) => {
     try {
-      await updateDoc(movieID, {
-        savedShows: item.filter((item) => item.id !== passedID),
-      });
+      const docSnapshot = await getDoc(movieID);
+      if (docSnapshot.exists()) {
+        const savedShows = docSnapshot.data().savedShows;
+        const updatedShows = savedShows.filter((show) => show.id !== passedID);
+        await updateDoc(movieID, { savedShows: updatedShows });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -81,12 +104,9 @@ const Movie = ({ item, onSelectMovie }) => {
         >
           {item?.title}
         </p>
-        <p onClick={saveShow}>
+        <p onClick={saved ? removeSavedShow : saveShow}>
           {saved ? (
-            <FaHeart
-              className="absolute top-4 left-4 text-red-500"
-              onClick={removeSavedShow}
-            />
+            <FaHeart className="absolute top-4 left-4 text-red-500" />
           ) : (
             <FaRegHeart className="absolute top-4 left-4 text-gray-300" />
           )}

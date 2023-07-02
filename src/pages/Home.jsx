@@ -34,7 +34,7 @@ const Home = () => {
   return (
     <div>
       {selectedMovie ? (
-        <Main movies={selectedMovie} />
+        <Main movies={selectedMovie} showWatchLaterButton={true} />
       ) : (
         <Main movies={null} />
       )}

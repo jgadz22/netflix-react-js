@@ -6,9 +6,10 @@ import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import { AiOutlineClose } from "react-icons/ai";
 import noImage from "../photos/No_Image.png";
 
-const SavedShows = () => {
+const SavedShows = ({ onSelectMovie }) => {
   const [movies, setMovies] = useState([]);
   const { user } = UserAuth();
+
 
   const slideLeft = () => {
     let slider = document.getElementById("slider");
@@ -37,6 +38,10 @@ const SavedShows = () => {
     }
   }
 
+  const handleClick = (selectedMovie) => {
+    onSelectMovie(selectedMovie);
+  };
+
   return (
     <div>
       <h2 className="text-white font-bold md:text-xl p-4">My Shows</h2>
@@ -54,6 +59,7 @@ const SavedShows = () => {
             <div
               key={id}
               className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
+              onClick={() => handleClick(item)}
             >
               <img
                 className="w-full h-[160px] block object-contain"
@@ -68,7 +74,7 @@ const SavedShows = () => {
                 <p className="white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center">
                   {item?.title}
                 </p>
-                <p onClick={() => deleteShow(item.id)} className=" absolute text-gray-300 top-4 right-4">
+                <p onClick={() => deleteShow(item.id)} className=" absolute text-gray-300 top-4 right-4 hover:text-red-600 active:text-lg">
                   <AiOutlineClose />
                 </p>
               </div>
