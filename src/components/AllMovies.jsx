@@ -30,6 +30,10 @@ const AllMovies = ({ fetchURL, onSelectMovie }) => {
     setSearch("");
     setMovies([]);
   };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    fetchMovies();
+  };
 
   useEffect(() => {
     // Fetch popular movies and set the state
@@ -55,6 +59,11 @@ const AllMovies = ({ fetchURL, onSelectMovie }) => {
                 placeholder="Search Movie"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    onSubmit(e);
+                  }
+                }}
                 className="bg-gray-900 text-white border text-sm md:text-xl border-none focus:outline-none"
               />
               <button onClick={onSubmitX} className="flex justify-center items-center text-center text-sm md:text-xl bg-gray-900 text-white p-2 md:px-3 hover:bg-gray-700 rounded-full">

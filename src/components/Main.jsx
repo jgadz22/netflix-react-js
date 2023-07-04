@@ -19,9 +19,13 @@ const Main = ({ movies, showWatchLaterButton }) => {
         `https://api.themoviedb.org/3/movie/${movies?.id}/videos?api_key=${process.env.REACT_APP_IMDB_API_KEY}`
       );
       const videos = response.data.results;
+      
       const trailer = videos.find((video) => video.type === "Trailer");
+      
       if (trailer) {
         setTrailerKey(trailer.key);
+      }else {
+        setTrailerKey(false);
       }
     } catch (error) {
       console.error("Error fetching trailer key:", error);
@@ -70,7 +74,11 @@ const Main = ({ movies, showWatchLaterButton }) => {
   const handlePlayButtonClick = () => {
     // Verify the origin of the window before showing the trailer
     if (window.location.origin === "http://localhost:3000" || window.location.origin === "https://jgadz22.github.io") {
-      setShowTrailer(true);
+      if (trailerKey) {
+        setShowTrailer(true);
+      } else {
+        alert("This movie doesn't have a trailer.");
+      }
     } else {
       console.log("Invalid origin. Trailer cannot be shown.");
     }
