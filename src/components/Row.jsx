@@ -10,7 +10,8 @@ const Row = ({ rowID, title, fetchURL, onSelectMovie  }) => {
     axios
       .get(fetchURL)
       .then((response) => {
-        setMovies(response.data.results);
+        const filteredMovies = response.data.results.filter((movie) => movie.backdrop_path !== null);
+        setMovies(filteredMovies);
       })
       .catch((error) => {
         console.log(error);

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
 const Navbar = () => {
+  const [scroll, setScroll] = useState(false)
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
 
@@ -15,11 +16,22 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    const handleShadow = () => {
+        if (window.scrollY >= 95){
+            setScroll(true)
+        } else {
+          setScroll(false)
+        }
+    };
+    window.addEventListener('scroll', handleShadow)
+}, []);
+
   return (
-    <div className="flex items-center justify-between p-4 z-[100] w-full absolute">
+    <div className={scroll ? "fixed top-0 left-0 z-50 flex items-center justify-between p-4 w-full bg-black" : "fixed top-0 left-0 z-50 flex items-center justify-between p-4 w-full bg-black/50"}>
       <Link to="/">
-        <h1 className="text-red-600 text-3xl cursor-pointer">
-          <span className="text-red-600 text-4xl font-extrabold">N</span> ETFLIXERJS
+        <h1 className="text-red-600 text-xl md:text-3xl cursor-pointer">
+          <span className="text-red-600 text-2xl md:text-4xl font-extrabold">N</span> ETFLIXERJS
         </h1>
       </Link>
       {user?.email ? (

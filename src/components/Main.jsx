@@ -102,7 +102,7 @@ const Main = ({ movies, showWatchLaterButton }) => {
         />
         <button
           onClick={() => setShowTrailer(false)}
-          className="mt-5 flex hover:ease-in text-white px-2 md:px-6 py-2 mr-2 md:mr-4 text-xs md:text-xl bg-red-600 hover:bg-red-300 active:bg-red-900"
+          className="my-5 flex hover:ease-in text-white px-2 md:px-6 py-2 mr-2 md:mr-4 text-xs md:text-xl bg-red-600 hover:bg-red-300 active:bg-red-900"
         >
           Close
         </button>
@@ -111,16 +111,16 @@ const Main = ({ movies, showWatchLaterButton }) => {
   };
 
   return (
-    <div className="w-full h-[350px] md:h-[550px] text-white relative">
-      <div className="w-full h-full">
-        <div className="absolute w-full h-[350px] md:h-[550px] bg-gradient-to-r from-black"></div>
+    <div className="relative w-full h-[350px] md:h-[550px] text-white z-10 ">
+      <div className="absolute top-0 left-0 z-20 w-full h-[350px] md:h-[550px]">
+      <div className="absolute w-full h-[350px] md:h-[550px] bg-gradient-to-tr from-black"></div>
         {showTrailer && (
           <div className="flex absolute scrollbar-hide top-0 right-0 h-full w-[100%] z-[100]">
             {showTrailer && renderTrailer()}
           </div>
         )}
         <img
-          className="w-full h-full object-cover"
+          className="w-full h-[350px] md:h-[550px] object-cover"
           src={
             movie?.backdrop_path
               ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
@@ -130,7 +130,7 @@ const Main = ({ movies, showWatchLaterButton }) => {
         />
 
         <div className="absolute w-full top-[20%] p-4 md:p-8">
-          <h1 className="text-3xl md:text-5xl font-bold">{movie?.title}</h1>
+          <h1 className="text-2xl md:text-5xl font-bold">{movie?.title}</h1>
           <div className="my-4">
             <button
               className="border bg-gray-300 text-black border-gray-300 py-2 px-5 hover:bg-transparent hover:text-white active:text-white active:bg-red-600"
@@ -140,7 +140,7 @@ const Main = ({ movies, showWatchLaterButton }) => {
             </button>
             {showWatchLaterButton && ( // Render watch later button based on showWatchLaterButton prop
               <button
-                className="border text-white border-gray-300 py-2 px-5 ml-4 hover:bg-gray-300 hover:text-black active:text-white active:bg-red-600"
+                className="border bg-black/50 text-white border-gray-300 py-2 px-5 ml-4 hover:bg-gray-600 hover:text-black active:text-white active:bg-red-600"
                 onClick={saveShow}
               >
                 Watch Later
@@ -150,7 +150,7 @@ const Main = ({ movies, showWatchLaterButton }) => {
           <p className="text-gray-400 text-sm">
             Released: {movie?.release_date}
           </p>
-          <p className="w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200">
+          <p className="w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200 text-sm md:text-xl">
             {truncateString(movie?.overview, 150)}
           </p>
         </div>

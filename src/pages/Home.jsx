@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Main from "../components/Main";
-import Row from "../components/Row";
 import requests from "../Requests";
 import axios from "axios";
+import AllMovies from "../components/AllMovies";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     // Fetch popular movies and set the state
     axios
-      .get(requests.requestPopular)
+      .get(requests.requestUpcoming)
       .then((response) => {
         setMovies(response.data.results);
       })
@@ -33,42 +33,17 @@ const Home = () => {
   };
   return (
     <div>
+      <div>
       {selectedMovie ? (
         <Main movies={selectedMovie} showWatchLaterButton={true} />
       ) : (
         <Main movies={null} />
       )}
-
-      <Row
-        rowID="1"
-        title="Upcoming"
-        fetchURL={requests.requestUpcoming}
-        onSelectMovie={handleSelectMovie}
-      />
-      <Row
-        rowID="2"
-        title="Popular"
-        fetchURL={requests.requestPopular}
-        onSelectMovie={handleSelectMovie}
-      />
-      <Row
-        rowID="3"
-        title="Trending"
-        fetchURL={requests.requestTrending}
-        onSelectMovie={handleSelectMovie}
-      />
-      <Row
-        rowID="4"
-        title="Top Rated"
-        fetchURL={requests.requestTopRated}
-        onSelectMovie={handleSelectMovie}
-      />
-      <Row
-        rowID="5"
-        title="Mystery"
-        fetchURL={requests.requestMystery}
-        onSelectMovie={handleSelectMovie}
-      />
+      </div>
+      <AllMovies
+      onSelectMovie={handleSelectMovie}
+       />
+      
     </div>
   );
 };
