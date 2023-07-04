@@ -7,6 +7,7 @@ import Movie from "./Movie";
 const AllMovies = ({ fetchURL, onSelectMovie }) => {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState([]);
+  const [searchError, setSearchError] = useState(false); 
 
   const fetchMovies = useCallback(() => {
     axios
@@ -18,25 +19,27 @@ const AllMovies = ({ fetchURL, onSelectMovie }) => {
           (movie) => movie.backdrop_path !== null
         );
         setMovies(filteredMovies);
+        setSearchError(filteredMovies.length === 0); 
       })
       .catch((error) => {
         console.log(error);
+        setSearchError(true);
       });
   }, [search]);
-
 
   const onSubmitX = (e) => {
     e.preventDefault();
     setSearch("");
     setMovies([]);
+    setSearchError(false);
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     fetchMovies();
   };
 
   useEffect(() => {
-    // Fetch popular movies and set the state
     fetchMovies();
   }, [fetchMovies]);
 
@@ -48,9 +51,7 @@ const AllMovies = ({ fetchURL, onSelectMovie }) => {
             Movie
           </h2>
           <form className="flex justify-between">
-          <label
-              className="flex justify-center items-center text-white md:mr-5 p-2 md:px-3 text-md md:text-xl"
-            >
+            <label className="flex justify-center items-center text-white md:mr-5 p-2 md:px-3 text-md md:text-xl">
               Search:
             </label>
             <div className="flex justify-between bg-gray-900 text-gray-500 focus:text-white border border-gray-800 px-2 md:px-2 hover:border-gray-400 border-r-transparent">
@@ -66,7 +67,10 @@ const AllMovies = ({ fetchURL, onSelectMovie }) => {
                 }}
                 className="bg-gray-900 text-white border text-sm md:text-xl border-none focus:outline-none"
               />
-              <button onClick={onSubmitX} className="flex justify-center items-center text-center text-sm md:text-xl bg-gray-900 text-white p-2 md:px-3 hover:bg-gray-700 rounded-full">
+              <button
+                onClick={onSubmitX}
+                className="flex justify-center items-center text-center text-sm md:text-xl bg-gray-900 text-white p-2 md:px-3 hover:bg-gray-700 rounded-full"
+              >
                 X
               </button>
             </div>
@@ -107,13 +111,15 @@ const AllMovies = ({ fetchURL, onSelectMovie }) => {
               />
             </div>
           ) : null}
-          {movies.length > 0 && (
+          {movies.length > 0 ? (
             <div className="flex justify-center items-center flex-wrap m-5">
               {movies.map((item, id) => (
                 <Movie key={id} item={item} onSelectMovie={onSelectMovie} />
               ))}
             </div>
-          )}
+          ) : searchError ? (
+            <p className="flex justify-center items-center text-center text-red-500 text-xl md:text-4xl my-10 md:my-20">No movies found.</p>
+          ) : null}
         </div>
       </div>
     </>
