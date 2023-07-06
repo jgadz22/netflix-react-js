@@ -66,13 +66,14 @@ const AllMovies = ({ fetchURL, onSelectMovie }) => {
                   }
                 }}
                 className="bg-gray-900 text-white border text-sm md:text-xl border-none focus:outline-none"
-              />
+              />{ search ?
               <button
                 onClick={onSubmitX}
                 className="flex justify-center items-center text-center text-sm md:text-xl bg-gray-900 text-white p-2 md:px-3 hover:bg-gray-700 rounded-full"
               >
                 X
               </button>
+              : null}
             </div>
           </form>
         </div>
