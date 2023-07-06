@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     // Fetch popular movies and set the state
     axios
-      .get(requests.requestUpcoming)
+      .get(requests.requestAllMovies)
       .then((response) => {
         setMovies(response.data.results);
       })

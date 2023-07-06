@@ -117,7 +117,7 @@ const AllMovies = ({ fetchURL, onSelectMovie }) => {
                 <Movie key={id} item={item} onSelectMovie={onSelectMovie} />
               ))}
             </div>
-          ) : searchError ? (
+          ) : searchError && search !== "" ? (
             <p className="flex justify-center items-center text-center text-red-500 text-xl md:text-4xl my-10 md:my-20">No movies found.</p>
           ) : null}
         </div>
